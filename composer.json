@@ -1,0 +1,40 @@
+{
+	"name":"bugbuster/contao-uptimerobot",
+	"description":"Contao CMS - Show uptime stats from Uptime Robot in your Contao Backend",
+	"keywords":["uptime","uptimerobot","contao"],
+	"type":"contao-module",
+	"homepage":"http://contao.ninja",
+	"license":"LGPL-3.0+",
+	"authors":[
+		{
+			"name":"Glen Langer",
+			"homepage":"http://contao.ninja",
+			"role":"Developer"
+		}
+	],
+	"support":{
+		"issues":"https://github.com/BugBuster1701/contao-uptimerobot/issues",
+		"irc":"irc://irc.freenode.org/contao.dev",
+		"source":"https://github.com/BugBuster1701/contao-uptimerobot",
+		"forum":"https://community.contao.org/de/forumdisplay.php?119-Sonstige-Erweiterungen"
+	},
+	"require":{
+		"php":">=5.3",
+		"contao/core":">=3.4,<4",
+		"contao-community-alliance/composer-plugin": "*"
+	},
+	"autoload":{
+		"classmap":[""]
+	},
+	"extra":{
+		"contao":{
+			"sources":{
+				"src": "system/modules/uptimerobot"
+			}
+		},
+		"branch-alias": {
+			"dev-master": "1.0.x-dev",
+			"dev-develop": "0.1.x-dev"
+		}
+	}
+}

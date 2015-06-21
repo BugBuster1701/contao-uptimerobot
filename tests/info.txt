@@ -1,0 +1,45 @@
+Rückgabe API bei $noJsonCallback = 1
+Array
+(
+    [0] => stdClass Object
+        (
+            [stat] => ok
+            [offset] => 0
+            [limit] => 50
+            [total] => 1
+            [monitors] => stdClass Object
+                (
+                    [monitor] => Array
+                        (
+                            [0] => stdClass Object
+                                (
+                                    [id] => 776884556
+                                    [friendlyname] => contao.ninja
+                                    [url] => http://contao.ninja
+                                    [type] => 1
+                                    [subtype] => 
+                                    [keywordtype] => 
+                                    [keywordvalue] => 
+                                    [httpusername] => 
+                                    [httppassword] => 
+                                    [port] => 
+                                    [interval] => 600
+                                    [status] => 2
+                                    [alltimeuptimeratio] => 100
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+Rückgabe API bei $noJsonCallback = 0
+Array
+(
+    [0] => jsonUptimeRobotApi({"stat": "ok", "offset": "0", "limit": "50", "total": "1","monitors":{"monitor":[{"id":"776884556","friendlyname":"contao.ninja","url":"http://contao.ninja","type":"1","subtype":"","keywordtype":"","keywordvalue":"","httpusername":"","httppassword":"","port":"","interval":"600","status":"2","alltimeuptimeratio":"100"}]}})
+)
+
+https://uptimerobot.com/api#parameters
