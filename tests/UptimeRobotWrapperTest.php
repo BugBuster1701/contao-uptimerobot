@@ -86,7 +86,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAllMonitorsSingle()
     {
-        fwrite(STDOUT,"\n". __METHOD__ . " API Key: ".$GLOBALS['monitor_api'][0]."\n");
+        //fwrite(STDOUT,"\n". __METHOD__ . " API Key: ".$GLOBALS['monitor_api'][0]."\n");
         $return = $this->UptimeRobotWrapper->getAllMonitors($GLOBALS['monitor_api'][0]);
         $this->assertNotEquals(null,$return);
     }

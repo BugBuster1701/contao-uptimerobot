@@ -101,17 +101,6 @@ class DcaUptimeRobot extends \Backend
                                             WHERE
                                                 id=?")
                                 ->execute(time(),$intId);
-        // There can be only one.
-        /*
-        \Database::getInstance()->prepare("UPDATE
-                                                tl_uptimerobot
-                                            SET
-                                                tstamp=?
-                                                , published=''
-                                            WHERE
-                                                id!=?")
-                                ->execute(time(),$intId);
-        */
     }
     
     /**
@@ -135,7 +124,7 @@ class DcaUptimeRobot extends \Backend
         {
             $this->UptimeRobotWrapper = new \UptimeRobot\UptimeRobotWrapper($monitor_data);
             $this->UptimeRobotWrapper->parseMonitorData();
-            $arrObjMonitors = $this->UptimeRobotWrapper->getAllMonitors();
+            $arrObjMonitors    = $this->UptimeRobotWrapper->getAllMonitors();
             $arrMonitorsStatus = $this->UptimeRobotWrapper->generateStatus($arrObjMonitors);
         }
         else 
@@ -156,26 +145,9 @@ class DcaUptimeRobot extends \Backend
         {
         	if ($arrMonitorStatus['stat'] == 'ok') 
         	{
-        	    switch ($arrMonitorStatus['monitor_status_id'])
-        	    {
-        	    	case 0 :
-        	    	    $icon = $icon_0;
-        	    	    break;
-        	    	case 1 :
-        	    	    $icon = $icon_1;
-        	    	    break;
-        	    	case 2 :
-        	    	    $icon = $icon_2;
-        	    	    break;
-        	    	case 3 :
-        	    	    $icon = $icon_3;
-        	    	    break;
-        	    	case 4 :
-        	    	    $icon = $icon_4;
-        	    	    break;
-        	    	default :
-        	    	    break;
-        	    }
+        	    $merge = 'icon_'.$arrMonitorStatus['monitor_status_id'];
+        	    $icon  = $$merge;
+        	    
         	    $class = (($lineCount % 2) == 0) ? ' even' : ' odd';
         		$table .= '<tr class='.$class.'>
     <td class="tl_file_list" style="text-align: center;">'.$icon.'</td>
