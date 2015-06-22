@@ -1,4 +1,4 @@
-Rückgabe API bei $noJsonCallback = 1
+Rückgabe API bei $noJsonCallback = 1 und zwei einzel read-only keys
 Array
 (
     [0] => stdClass Object
@@ -24,6 +24,39 @@ Array
                                     [httppassword] => 
                                     [port] => 
                                     [interval] => 600
+                                    [status] => 2
+                                    [alltimeuptimeratio] => 100
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [stat] => ok
+            [offset] => 0
+            [limit] => 50
+            [total] => 1
+            [monitors] => stdClass Object
+                (
+                    [monitor] => Array
+                        (
+                            [0] => stdClass Object
+                                (
+                                    [id] => 776884653
+                                    [friendlyname] => glen-langer.de
+                                    [url] => http://www.glen-langer.de
+                                    [type] => 1
+                                    [subtype] => 
+                                    [keywordtype] => 
+                                    [keywordvalue] => 
+                                    [httpusername] => 
+                                    [httppassword] => 
+                                    [port] => 
+                                    [interval] => 1800
                                     [status] => 2
                                     [alltimeuptimeratio] => 100
                                 )

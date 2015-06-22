@@ -27,7 +27,7 @@ class UptimeRobotTest extends PHPUnit_Framework_TestCase
     {
         $this->object = new UptimeRobot;
         //read-only key for one monitor over boostrap.php
-        $this->apiKey = $GLOBALS['monitor_api'];
+        $this->apiKey = $GLOBALS['monitor_api'][0];
     }
 
     /**
