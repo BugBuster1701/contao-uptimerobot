@@ -1,6 +1,6 @@
 {
 	"name":"bugbuster/contao-uptimerobot",
-	"description":"Contao CMS - Show uptime stats from Uptime Robot in your Contao Backend",
+	"description":"Contao CMS - Show uptime stats from UptimeRobot in your Contao back end",
 	"keywords":["uptime","uptimerobot","contao"],
 	"type":"contao-module",
 	"homepage":"http://contao.ninja",
@@ -30,6 +30,12 @@
 		"contao":{
 			"sources":{
 				"src": "system/modules/uptimerobot"
+			},
+			"transifex": {
+				"project": "contao-uptimerobot",
+				"prefix": "master-",
+				"languages_cto": "src/languages",
+				"languages_tx": ".tx"
 			}
 		},
 		"branch-alias": {
