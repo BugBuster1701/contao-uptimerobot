@@ -9,7 +9,9 @@ else
 {
     echo "File: ".dirname(__FILE__) . '/apikey.php'." not found\n";
     echo "Create a file ".dirname(__FILE__) . "/apikey.php with this content:\n";
-    echo "<?php \n\$GLOBALS['monitor_api'] = 'your-monitor-api-key';\n\n";
+    echo "<?php \n\$GLOBALS['monitor_api'][0] = 'your-fist-monitor-api-key';\n";
+    echo "\$GLOBALS['monitor_api'][1] = 'your-second-monitor-api-key';\n";
+    echo "....\n\n";
     exit(255);
 }
 
