@@ -77,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_uptimerobot'] = array
     'palettes' => array
     (
         //'__selector__'                => array(),
-        'default'                     => 'monitor_group,monitor_data;published,monitor_debug'
+        'default'                     => 'monitor_group,monitor_data;{publish_legend},published,monitor_debug'
     ),
 
     // Fields

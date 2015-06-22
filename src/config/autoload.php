@@ -24,6 +24,7 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'BugBuster\UptimeRobot\DcaUptimeRobot' => 'system/modules/uptimerobot/classes/DcaUptimeRobot.php',
-	'UptimeRobot'                          => 'system/modules/uptimerobot/classes/UptimeRobot.php',
+	'BugBuster\UptimeRobot\DcaUptimeRobot'     => 'system/modules/uptimerobot/classes/DcaUptimeRobot.php',
+	'BugBuster\UptimeRobot\UptimeRobotWrapper' => 'system/modules/uptimerobot/classes/UptimeRobotWrapper.php',
+	'UptimeRobot'                              => 'system/modules/uptimerobot/classes/UptimeRobot.php',
 ));

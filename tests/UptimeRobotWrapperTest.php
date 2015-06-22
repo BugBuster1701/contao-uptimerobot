@@ -115,7 +115,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
      */
     public function testGenerateStatus()
     {
-        //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
+        fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
         $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
         $this->assertNotEquals(null,$return);
         fwrite(STDOUT,"\n" . print_r($return,true) ."\n");

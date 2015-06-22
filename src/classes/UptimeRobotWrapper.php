@@ -41,6 +41,7 @@ class UptimeRobotWrapper
                                       , 4 => 'Port'
                                       );
     
+    // only for Monitor Type 4
     public static $MONITOR_SUBTYPE = array(1  => 'HTTP (80)'
                                          , 2  => 'HTTPS (443)'
                                          , 3  => 'FTP (21)'
@@ -50,15 +51,17 @@ class UptimeRobotWrapper
                                          , 99 => 'Custom Port'
                                          );
     
+    // only for Monitor Type 2
     public static $MONITOR_KEYWORDTYPE = array(1 => 'exists'
                                              , 2 => 'not exists'
                                              );
     
-    public static $MONITOR_STATUS = array(0 => 'paused'
-                                        , 1 => 'not checked yet'
-                                        , 2 => 'up'
-                                        , 3 => 'seems down'
-                                        , 4 => 'down'
+    //TODO über Sprachfiles
+    public static $MONITOR_STATUS = array(0 => 'paused'             // invisible.gif
+                                        , 1 => 'not checked yet'    // invisible.gif
+                                        , 2 => 'up'                 // ok.gif
+                                        , 3 => 'seems down'         // about.gif
+                                        , 4 => 'down'               // error.gif
                                         );
     
 
@@ -148,14 +151,20 @@ class UptimeRobotWrapper
             	$genStatus[] = array('stat'           => $allMonitor->stat // ok
             	                   , 'id'             => $objMonitor->id
             	                   , 'friendlyname'   => $objMonitor->friendlyname
+                                   , 'url'            => $objMonitor->url
             	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
-            	                   , 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
+            	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
+            	                   , 'monitor_status_id'  => $objMonitor->status
+            	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
+            	                   , 'limit'              => $allMonitor->limit
             	                  );
         	}
         	else 
         	{
         	    $genStatus[] = array('stat'    => $allMonitor->stat // fail
         	                       , 'message' => $allMonitor->message
+                                   , 'monitor_status_id'  => 4
+                                   , 'limit'              => $allMonitor->limit
         	                        );
         	}
         }
@@ -167,10 +176,12 @@ class UptimeRobotWrapper
         return self::$MONITOR_TYPE[$monitor_type];
     }
     
+    /*
     public function translateMonitorStatus($monitor_status)
     {
         return self::$MONITOR_STATUS[$monitor_status];
     }
+    */
     
     
     
