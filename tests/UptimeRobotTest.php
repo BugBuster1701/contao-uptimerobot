@@ -7,7 +7,6 @@
  * @authorUrl   http://www.watchful.li
  * @license     GNU General Public License version 2 or later
  */
-require_once dirname(__FILE__) . '/../src/classes/UptimeRobot.php';
 
 class UptimeRobotTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +16,7 @@ class UptimeRobotTest extends PHPUnit_Framework_TestCase
     protected $object;
     static    $newMonitorId;
     static    $newUserId;
-    protected $apiKey = 'm776884556-3fb40e2309f91f8c635bc678'; //read-only key for one monitor
+    protected $apiKey = ''; //read-only key for one monitor
     protected $email  = 'YOUR@EMAIL.com';
 
     /**
@@ -27,6 +26,8 @@ class UptimeRobotTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->object = new UptimeRobot;
+        //read-only key for one monitor over boostrap.php
+        $this->apiKey = $GLOBALS['monitor_api'][0];
     }
 
     /**

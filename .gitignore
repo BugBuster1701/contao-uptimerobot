@@ -4,3 +4,11 @@
 .settings/
 # Transifex
 /.tx/
+<<<<<<< HEAD
+=======
+# phpunit
+build/
+# test apikey file
+tests/apikey.php
+
+>>>>>>> develop
