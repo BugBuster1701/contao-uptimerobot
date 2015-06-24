@@ -16,6 +16,16 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     private static $arrObjMonitors;
 
     /**
+     * called before the first test of the test case class is run
+     * also see: tearDownAfterClass()
+     */
+    public static function setUpBeforeClass()
+    {
+        $GLOBALS['monitor_api'] = json_decode($GLOBALS['monitor_api'], true);
+        //fwrite(STDOUT,"\n". __METHOD__ . " monitor_api: ".print_r($GLOBALS['monitor_api'],true)."\n");
+    }
+    
+    /**
      * Prepares the environment before running a test.
      */
     protected function setUp()
@@ -115,7 +125,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
      */
     public function testGenerateStatus()
     {
-        fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
+        //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
         $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
         $this->assertNotEquals(null,$return);
         fwrite(STDOUT,"\n" . print_r($return,true) ."\n");

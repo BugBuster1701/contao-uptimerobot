@@ -28,5 +28,9 @@
       </exclude>
     </whitelist>
   </filter>
+  
+  <php>
+  	<var name="monitor_api" value='["pleasechangeme-1","pleasechangeme-2"]' />
+  </php>
 </phpunit>
 
