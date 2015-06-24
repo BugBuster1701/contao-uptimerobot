@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * UptimeRobotWrapper test case.
  */
@@ -21,7 +20,8 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
      */
     public static function setUpBeforeClass()
     {
-        $GLOBALS['monitor_api'] = json_decode($GLOBALS['monitor_api'], true);
+        //read-only key(s) for monitors over phpunit.xml[.dist]
+        $GLOBALS['monitor_api'] = json_decode($GLOBALS['monitor_api_keys'], true);
         //fwrite(STDOUT,"\n". __METHOD__ . " monitor_api: ".print_r($GLOBALS['monitor_api'],true)."\n");
     }
     
@@ -62,7 +62,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests UptimeRobotWrapper->__construct()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::__construct
      */
     public function test__construct()
     {
@@ -74,7 +74,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests UptimeRobotWrapper->parseMonitorData()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::parseMonitorData
      */
     public function testParseMonitorData()
     {
@@ -83,7 +83,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests UptimeRobotWrapper->getAllMonitors()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::getAllMonitors
      */
     public function testGetAllMonitorsWrongKey()
     {
@@ -92,7 +92,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * Tests UptimeRobotWrapper->getAllMonitors()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::getAllMonitors
      */
     public function testGetAllMonitorsSingle()
     {
@@ -102,7 +102,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * Tests UptimeRobotWrapper->getAllMonitors()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::getAllMonitors
      */
     public function testGetAllMonitorsMultiple()
     {
@@ -113,6 +113,9 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
         //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
     }
     
+    /**
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::translateMonitorType
+     */
     public function testTranslateMonitorType()
     {
         //fwrite(STDOUT,"\n". __METHOD__ . "\n");
@@ -121,14 +124,25 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * Tests UptimeRobotWrapper->generateStatus()
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::generateStatus
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::translateMonitorType
      */
     public function testGenerateStatus()
     {
         //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
         $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
         $this->assertNotEquals(null,$return);
-        fwrite(STDOUT,"\n" . print_r($return,true) ."\n");
+        //fwrite(STDOUT,"\n" . print_r($return,true) ."\n");
+        
+        self::$arrObjMonitors = null;
+        self::$arrObjMonitors[0] = new stdClass();
+        self::$arrObjMonitors[0]->stat    = 'fail';
+        self::$arrObjMonitors[0]->message = 'wrong key';
+        self::$arrObjMonitors[0]->limit   = 50;
+        //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
+        $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
+        $this->assertEquals('fail',$return[0]['stat']);
+        //fwrite(STDOUT,"\n" . print_r($return,true) ."\n");
     }
 }
 

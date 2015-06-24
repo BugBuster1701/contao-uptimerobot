@@ -20,13 +20,24 @@ class UptimeRobotTest extends PHPUnit_Framework_TestCase
     protected $email  = 'YOUR@EMAIL.com';
 
     /**
+     * called before the first test of the test case class is run
+     * also see: tearDownAfterClass()
+     */
+    public static function setUpBeforeClass()
+    {
+        //read-only key(s) for monitors over phpunit.xml[.dist]
+        $GLOBALS['monitor_api'] = json_decode($GLOBALS['monitor_api_keys'], true);
+        //fwrite(STDOUT,"\n". __METHOD__ . " monitor_api: ".print_r($GLOBALS['monitor_api'],true)."\n");
+    }
+    
+    /**
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp()
     {
         $this->object = new UptimeRobot;
-        //read-only key for one monitor over boostrap.php
+        //read-only key for one monitor over phpunit.xml[.dist]
         $this->apiKey = $GLOBALS['monitor_api'][0];
     }
 
