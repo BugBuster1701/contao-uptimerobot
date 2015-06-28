@@ -111,18 +111,16 @@ class DcaUptimeRobot extends \Backend
     public function showMonitors($arrRow)
     {
         $lineCount = 0;
-        
+
         $icon_0 = \Image::getHtml('invisible.gif', $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_0'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_0']).'"');
         $icon_1 = \Image::getHtml('invisible.gif', $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_1'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_1']).'"');
         $icon_2 = \Image::getHtml('ok.gif'       , $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_2'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_2']).'"');
         $icon_3 = \Image::getHtml('about.gif'    , $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_3'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_3']).'"');
         $icon_4 = \Image::getHtml('error.gif'    , $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_4'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_4']).'"');
         
-        $monitor_data = deserialize($arrRow[monitor_data], true);
-        
         if (true === (bool) $arrRow['published']) 
         {
-            $this->UptimeRobotWrapper = new \UptimeRobot\UptimeRobotWrapper($monitor_data);
+            $this->UptimeRobotWrapper = new \UptimeRobot\UptimeRobotWrapper($arrRow);
             $this->UptimeRobotWrapper->parseMonitorData();
             $arrObjMonitors    = $this->UptimeRobotWrapper->getAllMonitors();
             $arrMonitorsStatus = $this->UptimeRobotWrapper->generateStatus($arrObjMonitors);
@@ -131,7 +129,8 @@ class DcaUptimeRobot extends \Backend
         {
             $arrMonitorsStatus = array();
         }
-        $table = '<table class="tl_listing_checks" id="tg-oLiAr">
+        $table = '
+<table class="tl_listing_checks" id="tg-oLiAr">
   <tr>
     <th class="tl_folder_tlist" style="text-align: center;">'.$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_status'].'</th>
     <th class="tl_folder_tlist">'.$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_name'].'</th>
@@ -148,8 +147,8 @@ class DcaUptimeRobot extends \Backend
         	    $merge = 'icon_'.$arrMonitorStatus['monitor_status_id'];
         	    $icon  = $$merge;
         	    
-        	    $class = (($lineCount % 2) == 0) ? ' even' : ' odd';
-        		$table .= '<tr class='.$class.'>
+        	    $class = (($lineCount % 2) == 0) ? 'even' : 'odd';
+        		$table .= '<tr class="'.$class.'">
     <td class="tl_file_list" style="text-align: center;">'.$icon.'</td>
     <td class="tl_file_list">'.$arrMonitorStatus['friendlyname'].'</td>
     <td class="tl_file_list">'.$arrMonitorStatus['url'].'</td>
@@ -161,8 +160,8 @@ class DcaUptimeRobot extends \Backend
         	}
         	else 
         	{
-        	    $class = (($lineCount % 2) == 0) ? ' even' : ' odd';
-        	    $table .= '<tr class='.$class.'>
+        	    $class = (($lineCount % 2) == 0) ? 'even' : 'odd';
+        	    $table .= '<tr class="'.$class.'">
     <td class="tl_file_list" style="text-align: center;">'.$icon_4.'</td>
     <td class="tl_file_list" colspan="4">Error: '.$arrMonitorStatus['message'].'</td>
   </tr>
@@ -177,14 +176,16 @@ class DcaUptimeRobot extends \Backend
         if ($arrMonitorStatus['stat'] == 'ok')
         {
             $table .= '<table class="tl_listing_checks">';
-            $table .= '<tr>
+            $table .= '
+  <tr>
     <td class="tl_file_list">&nbsp;</td>
-</tr>
-<tr>
+  </tr>
+  <tr>
     <td class="tl_folder_tlist" style="text-align: center;">'.sprintf($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_limit'], $lineCount, $arrMonitorStatus['limit']).'</td>
   </tr>
 ';
-            $table .= '</table>';
+            $table .= '</table>
+';
         }
         
         return $table;

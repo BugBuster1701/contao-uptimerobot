@@ -32,13 +32,21 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        $arrRow   = array();
         //read-only key for one monitor over boostrap.php
-        foreach ($GLOBALS['monitor_api'] as $value) 
+        foreach ($GLOBALS['monitor_api'] as $value)
         {
-            $arrRow[] = array('monitor_api' => $value);
+            $monitor_data[] = array('monitor_api' => $value);
         }
-        //fwrite(STDOUT,"\n". __METHOD__ . " API Key: ".print_r($arrRow,true)."\n");
+        // Create DCA Row 
+        $arrRow   = array('id'            => 1,
+                          'tstamp'        => 1435531681,
+                          'monitor_data'  => serialize($monitor_data),
+                          'published'     => 1,
+                          'monitor_debug' => 1,
+                          'monitor_group' => 'BugBuster Server'
+                         );
+        
+        //fwrite(STDOUT,"\n". __METHOD__ . " DCA Row: ".print_r($arrRow,true)."\n");
         $this->UptimeRobotWrapper = new BugBuster\UptimeRobot\UptimeRobotWrapper($arrRow);
     }
 
@@ -68,9 +76,17 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     {
         $return = $this->UptimeRobotWrapper->__construct(/* parameters */);
         $this->assertFalse($return);
-        $return = $this->UptimeRobotWrapper->__construct(array());
+        // Create DCA Row
+        $arrRow   = array('id'            => 1,
+                          'tstamp'        => 1435531681,
+                          'monitor_data'  => serialize(array()),
+                          'published'     => 1,
+                          'monitor_debug' => 1,
+                          'monitor_group' => 'BugBuster Server'
+                        );
+        $return = $this->UptimeRobotWrapper->__construct($arrRow);
         $this->assertTrue($return);
-        
+        //fwrite(STDOUT,"\n". __METHOD__ . " DCA Row: ".print_r($arrRow,true)."\n");
     }
 
     /**
