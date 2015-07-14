@@ -184,6 +184,14 @@ class DcaUptimeRobot extends \Backend
     <td class="tl_folder_tlist" style="text-align: center;">'.sprintf($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_limit'], $lineCount, $arrMonitorStatus['limit']).'</td>
   </tr>
 ';
+            if ($arrMonitorStatus['total'] > 1) 
+            {
+            	$table .= '
+  <tr>
+    <td class="tl_folder_tlist" style="text-align: center;">'.$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_main_key'].'</td>
+  </tr>
+';
+            }
             $table .= '</table>
 ';
         }

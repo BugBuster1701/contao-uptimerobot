@@ -148,21 +148,23 @@ class UptimeRobotWrapper
         	if ($allMonitor->stat == self::STAT_OK)
         	{
             	$objMonitors = $allMonitor->monitors;
-            	$objMonitor  = $objMonitors->monitor[0];
-            	
-            	$id = $objMonitor->id;
-            	$friendlyname = $objMonitor->friendlyname;
-            	
-            	$genStatus[] = array('stat'           => $allMonitor->stat // ok
-            	                   , 'id'             => $objMonitor->id
-            	                   , 'friendlyname'   => $objMonitor->friendlyname
-                                   , 'url'            => $objMonitor->url
-            	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
-            	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
-            	                   , 'monitor_status_id'  => $objMonitor->status
-            	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
-            	                   , 'limit'              => $allMonitor->limit
-            	                  );
+            	foreach ($objMonitors->monitor as $objMonitor) 
+            	{
+                	$id = $objMonitor->id;
+                	$friendlyname = $objMonitor->friendlyname;
+                	
+                	$genStatus[] = array('stat'           => $allMonitor->stat // ok
+                	                   , 'id'             => $objMonitor->id
+                	                   , 'friendlyname'   => $objMonitor->friendlyname
+                                       , 'url'            => $objMonitor->url
+                	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
+                	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
+                	                   , 'monitor_status_id'  => $objMonitor->status
+                	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
+                	                   , 'limit'              => $allMonitor->limit
+                                       , 'total'              => $allMonitor->total
+                	                  );
+            	}
         	}
         	else 
         	{
