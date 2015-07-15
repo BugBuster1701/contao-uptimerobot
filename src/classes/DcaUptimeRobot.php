@@ -110,6 +110,9 @@ class DcaUptimeRobot extends \Backend
      */
     public function showMonitors($arrRow)
     {
+        $this->startDebug($arrRow);
+        UptimeRobotLog::writeLog(__METHOD__ , __LINE__ , 'DCA data: '. print_r($arrRow,true));
+        
         $lineCount = 0;
 
         $icon_0 = \Image::getHtml('invisible.gif', $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_0'], 'title="' .specialchars($GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_status_0']).'"');
@@ -197,6 +200,12 @@ class DcaUptimeRobot extends \Backend
         }
         
         return $table;
+    }
+    
+    protected function startDebug($arrRow)
+    {
+        $GLOBALS['UptimeRobot']['debug']['status'] = (bool) $arrRow['monitor_debug'];
+        UptimeRobotLog::writeLog('## START ##', '## DEBUG ##', 'ID: '.$arrRow['id']);
     }
     
 }
