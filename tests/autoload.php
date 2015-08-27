@@ -8,9 +8,9 @@ spl_autoload_register(
         if ($classes === null) {
             $classes = array(
                 'bugbuster\\uptimerobot\\dcauptimerobot' => '/../src/classes/DcaUptimeRobot.php',
+                'bugbuster\\uptimerobot\\uptimerobotlog' => '/../src/classes/UptimeRobotLog.php',
                 'bugbuster\\uptimerobot\\uptimerobotwrapper' => '/../src/classes/UptimeRobotWrapper.php',
-                'uptimerobot' => '/../src/classes/UptimeRobot.php',
-                'uptimerobot\\uptimerobotwrapper' => '/../src/config/ide_compat.php'
+                'uptimerobot' => '/../src/classes/UptimeRobot.php'
             );
         }
         $cn = strtolower($class);

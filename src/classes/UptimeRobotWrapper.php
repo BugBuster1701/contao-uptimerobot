@@ -31,6 +31,7 @@ class UptimeRobotWrapper
     
     protected $arrMonitorData = array();
     protected $arrApiKeys     = array();
+    protected $debug          = false;
     
     const STAT_OK   = 'ok';
     const STAT_FAIL = 'fail';
@@ -66,7 +67,7 @@ class UptimeRobotWrapper
     
 
     /**
-     * MonitorData Row 
+     * DCA Row
      */
     public function __construct($arrRow = null)
     {
@@ -74,8 +75,12 @@ class UptimeRobotWrapper
         {
             return false;
         }
-        $this->arrMonitorData = $arrRow;
+        //deserialize not work on phphunit, no functions.php at this time
+        $monitor_data = @unserialize($arrRow[monitor_data]);
+        
+        $this->arrMonitorData = $monitor_data;
         $this->arrApiKeys     = array();
+        $this->debug          = (bool) $arrRow['monitor_debug'];
         
         return true;
     }
@@ -114,6 +119,7 @@ class UptimeRobotWrapper
         	$this->arrApiKeys[] = $apikey;
         }
         $all = array();
+        $mon = array();
         foreach ($this->arrApiKeys as $ApiKey) 
         {
             $upRobot::configure($ApiKey, 1);            
@@ -124,8 +130,9 @@ class UptimeRobotWrapper
              */
             try
             {
-                $all[] = $upRobot->getMonitors();
-                //print_r($all);
+                $mon = $upRobot->getMonitors();
+                UptimeRobotLog::writeLog(__METHOD__ , __LINE__ , 'Monitors: '. print_r($mon,true));
+                $all[] = $mon;                
             }
             catch (\Exception $e) {}
             
@@ -143,21 +150,23 @@ class UptimeRobotWrapper
         	if ($allMonitor->stat == self::STAT_OK)
         	{
             	$objMonitors = $allMonitor->monitors;
-            	$objMonitor  = $objMonitors->monitor[0];
-            	
-            	$id = $objMonitor->id;
-            	$friendlyname = $objMonitor->friendlyname;
-            	
-            	$genStatus[] = array('stat'           => $allMonitor->stat // ok
-            	                   , 'id'             => $objMonitor->id
-            	                   , 'friendlyname'   => $objMonitor->friendlyname
-                                   , 'url'            => $objMonitor->url
-            	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
-            	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
-            	                   , 'monitor_status_id'  => $objMonitor->status
-            	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
-            	                   , 'limit'              => $allMonitor->limit
-            	                  );
+            	foreach ($objMonitors->monitor as $objMonitor) 
+            	{
+                	$id = $objMonitor->id;
+                	$friendlyname = $objMonitor->friendlyname;
+                	
+                	$genStatus[] = array('stat'           => $allMonitor->stat // ok
+                	                   , 'id'             => $objMonitor->id
+                	                   , 'friendlyname'   => $objMonitor->friendlyname
+                                       , 'url'            => $objMonitor->url
+                	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
+                	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
+                	                   , 'monitor_status_id'  => $objMonitor->status
+                	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
+                	                   , 'limit'              => $allMonitor->limit
+                                       , 'total'              => $allMonitor->total
+                	                  );
+            	}
         	}
         	else 
         	{

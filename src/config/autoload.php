@@ -27,4 +27,5 @@ ClassLoader::addClasses(array
 	'BugBuster\UptimeRobot\DcaUptimeRobot'     => 'system/modules/uptimerobot/classes/DcaUptimeRobot.php',
 	'BugBuster\UptimeRobot\UptimeRobotWrapper' => 'system/modules/uptimerobot/classes/UptimeRobotWrapper.php',
 	'UptimeRobot'                              => 'system/modules/uptimerobot/classes/UptimeRobot.php',
+	'BugBuster\UptimeRobot\UptimeRobotLog'     => 'system/modules/uptimerobot/classes/UptimeRobotLog.php',
 ));
