@@ -119,6 +119,7 @@ class UptimeRobotWrapper
         	$this->arrApiKeys[] = $apikey;
         }
         $all = array();
+        $mon = array();
         foreach ($this->arrApiKeys as $ApiKey) 
         {
             $upRobot::configure($ApiKey, 1);            
@@ -129,8 +130,9 @@ class UptimeRobotWrapper
              */
             try
             {
-                $all[] = $upRobot->getMonitors();
-                //print_r($all);
+                $mon = $upRobot->getMonitors();
+                UptimeRobotLog::writeLog(__METHOD__ , __LINE__ , 'Monitors: '. print_r($mon,true));
+                $all[] = $mon;                
             }
             catch (\Exception $e) {}
             
