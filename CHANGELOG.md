@@ -1,4 +1,4 @@
-# Change Log
+# UptimeRobot Changelog
 
 ## [0.2.1](https://github.com/BugBuster1701/contao-uptimerobot/tree/0.2.1) (2015-09-17)
 [Full Changelog](https://github.com/BugBuster1701/contao-uptimerobot/compare/0.2.0...0.2.1)
