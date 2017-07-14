@@ -11,7 +11,7 @@
  */
 class UptimeRobot
 {
-    private $base_uri = 'http://api.uptimerobot.com';
+    private $base_uri = 'https://api.uptimerobot.com';
     static private $apiKey;
     static private $noJsonCallback;
     private $format = "json";
