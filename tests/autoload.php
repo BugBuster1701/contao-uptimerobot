@@ -7,10 +7,10 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
-                'bugbuster\\uptimerobot\\dcauptimerobot' => '/../src/classes/DcaUptimeRobot.php',
-                'bugbuster\\uptimerobot\\uptimerobotlog' => '/../src/classes/UptimeRobotLog.php',
-                'bugbuster\\uptimerobot\\uptimerobotwrapper' => '/../src/classes/UptimeRobotWrapper.php',
-                'uptimerobot' => '/../src/classes/UptimeRobot.php'
+                'bugbuster\\uptimerobot\\dcauptimerobot' => '/../src/Resources/contao/classes/DcaUptimeRobot.php',
+                'bugbuster\\uptimerobot\\uptimerobotlog' => '/../src/Resources/contao/classes/UptimeRobotLog.php',
+                'bugbuster\\uptimerobot\\uptimerobotwrapper' => '/../src/Resources/contao/classes/UptimeRobotWrapper.php',
+                'uptimerobot' => '/../src/Resources/contao/classes/UptimeRobot.php'
             );
         }
         $cn = strtolower($class);
