@@ -6,7 +6,7 @@
  * @version     1.0
  * @author      Watchful
  * @authorUrl   http://www.watchful.li
- * @filesource  From mb2o <https://github.com/CodingOurWeb/PHP-wrapper-for-UptimeRobot-API>
+ * @filesource  https://github.com/watchfulli/uptimeRobot
  * @license     GNU General Public License version 2 or later
  */
 class UptimeRobot
