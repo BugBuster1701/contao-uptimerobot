@@ -18,6 +18,9 @@
  */
 namespace BugBuster\UptimeRobot;
 
+use BugBuster\UptimeRobot\UptimeRobotWrapper;
+use BugBuster\UptimeRobot\UptimeRobotLog;
+
 /**
  * DCA Helper Class DcaUptimeRobot
  *
@@ -123,7 +126,7 @@ class DcaUptimeRobot extends \Backend
         
         if (true === (bool) $arrRow['published']) 
         {
-            $this->UptimeRobotWrapper = new \UptimeRobot\UptimeRobotWrapper($arrRow);
+            $this->UptimeRobotWrapper = new UptimeRobotWrapper($arrRow);
             $this->UptimeRobotWrapper->parseMonitorData();
             $arrObjMonitors    = $this->UptimeRobotWrapper->getAllMonitors();
             $arrMonitorsStatus = $this->UptimeRobotWrapper->generateStatus($arrObjMonitors);

@@ -18,6 +18,9 @@
  */
 namespace BugBuster\UptimeRobot;
 
+use BugBuster\UptimeRobot\UptimeRobotLog;
+
+
 /**
  * Helper Class UptimeRobotWrapper
  *
@@ -90,6 +93,9 @@ class UptimeRobotWrapper
      */
     public function parseMonitorData()
     {
+        if (!$this->arrMonitorData)
+            return false;
+        
         foreach ($this->arrMonitorData as $apikey) 
         {
             if (isset($apikey['monitor_api']))
