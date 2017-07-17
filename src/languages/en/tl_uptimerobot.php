@@ -24,7 +24,7 @@ $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_id']     = 'ID';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_name']   = 'Name';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_url']    = 'URL';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_type']   = 'Type';
-$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_ratio']  = 'Ratio';
+$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_ratio']  = 'Uptime';
 
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_limit']     = 'You are currently using %s of your %s monitors. (Limit)';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_main_key']  = 'Warning: You are using the "Main API Key" instead of the "Monitor-Specific API Keys".';

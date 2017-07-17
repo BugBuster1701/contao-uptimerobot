@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-06-22T23:07:38+02:00
+ * last-updated: 2015-08-27T23:13:20+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_api']['0']      = 'Monitor API Keys';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_api']['1']      = 'API Key, Monitor spezifischer read-only Key bevorzugt aus Sicherheitsgründen';
@@ -22,7 +21,7 @@ $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_group']['0']    = 'Gruppenname';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_group']['1']    = 'Monitor Gruppenname';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_id']     = 'ID';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_name']   = 'Name';
-$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_ratio']  = 'Ratio';
+$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_ratio']  = 'Verfügbarkeit';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_status'] = 'Status';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_type']   = 'Typ';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_url']    = 'URL';

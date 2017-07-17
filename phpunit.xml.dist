@@ -34,7 +34,7 @@
   </filter>
   
   <php>
-  	<var name="monitor_api" value='["pleasechangeme-1","pleasechangeme-2"]' />
+  	<var name="monitor_api_keys" value='["pleasechangeme-1","pleasechangeme-2"]' />
   </php>
 </phpunit>
 

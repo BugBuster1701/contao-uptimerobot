@@ -210,7 +210,7 @@ class DcaUptimeRobot extends \Backend
 				overlayColor: '#333',
 				fontColor: '#fff',
                 fontSize: '12px',
-				animate: false
+				animate: true
 			});
 		});
 	});
