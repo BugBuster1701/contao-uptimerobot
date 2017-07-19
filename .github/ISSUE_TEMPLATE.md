@@ -1,7 +1,7 @@
 This issue is a 
  
-- [ ] Bug report 
-- [ ] Feature request
+- Bug report? yes/no
+- Feature request? yes/no
 
 - Contao version:
 - PHP version:
