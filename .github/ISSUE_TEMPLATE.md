@@ -1,10 +1,9 @@
-This issue is a 
- 
-- Bug report? yes/no
-- Feature request? yes/no
-
-- Contao version:
-- PHP version:
+| Q                | A
+| ---------------- | -----
+| Bug report?      | yes/no
+| Feature request? | yes/no
+| Contao version   | x.y.z
+| PHP version      | x.y
 
 <!--
 - Please fill in this template according to your issue.
