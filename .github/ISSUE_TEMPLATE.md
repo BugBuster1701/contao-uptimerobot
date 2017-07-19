@@ -1,10 +1,7 @@
-## What's the matter
-
 This issue is a 
  
-- [ ] Bug fix 
-- [ ] New feature 
-- [ ] Translation 
+- [ ] Bug report 
+- [ ] Feature request
 
 - Contao version:
 - PHP version:
