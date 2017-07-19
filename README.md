@@ -4,7 +4,7 @@ Show uptime stats from Uptime Robot (https://uptimerobot.com) in your Contao bac
 
 **This Contao extension is still in development.**
 
-![Status UptimeRobot](src/doc/status-uptimerobot.jpg)
+![Status UptimeRobot](src/Resources/contao/doc/status-uptimerobot.jpg)
 
 
 # External sources
