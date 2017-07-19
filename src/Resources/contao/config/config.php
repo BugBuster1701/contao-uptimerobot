@@ -16,8 +16,8 @@
 $GLOBALS['BE_MOD']['system']['uptimerobot'] = array
 (
         'tables'     => array('tl_uptimerobot'),
-        'icon'       => 'system/modules/uptimerobot/assets/monitor_uptimerobot.png',
-        'stylesheet' => 'system/modules/uptimerobot/assets/mod_uptimerobot_be.css',
-        'javascript' => 'system/modules/uptimerobot/assets/RadialProgressBar.js'
+        'icon'       => 'bundles/bugbusteruptimerobot/monitor_uptimerobot.png',
+        'stylesheet' => 'bundles/bugbusteruptimerobot/mod_uptimerobot_be.css',
+        'javascript' => 'bundles/bugbusteruptimerobot/RadialProgressBar.js'
 );
 

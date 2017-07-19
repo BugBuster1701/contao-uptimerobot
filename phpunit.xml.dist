@@ -28,7 +28,7 @@
         <directory suffix=".php">src/config</directory>
         <directory suffix=".php">src/dca</directory>
         <directory suffix=".php">src/languages</directory>
-        <file>src/classes/DcaUptimeRobot.php</file>
+        <file>src/Resources/contao/classes/DcaUptimeRobot.php</file>
       </exclude>
     </whitelist>
   </filter>
