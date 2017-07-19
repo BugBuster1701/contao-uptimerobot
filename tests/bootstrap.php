@@ -2,6 +2,7 @@
 
 //autoload.php generated with phpab
 //phpab -o tests/autoload.php  -b tests src
+//https://github.com/theseer/Autoload
 require_once dirname(__FILE__) . '/autoload.php';
 
 function log_message($strMessage, $strLog='error.log')
