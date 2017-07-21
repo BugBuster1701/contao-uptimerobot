@@ -69,7 +69,21 @@ class UptimeRobotLog
             $value = print_r($value,true);
         }
         
-        log_message(sprintf('[%s] [%s] [%s] %s',$GLOBALS['UptimeRobot']['debug']['first'],$vclass.'::'.$arrNamespace[1],$line,$value),'uptime-robot_debug.log');
+        $strMessage = sprintf('[%s] [%s] [%s] %s',$GLOBALS['UptimeRobot']['debug']['first'],$vclass.'::'.$arrNamespace[1],$line,$value);
+        
+        if (($container = \System::getContainer()) !== null)
+        {
+            $strLogsDir = $container->getParameter('kernel.logs_dir');
+        }
+        
+        if (!$strLogsDir)
+        {
+            $strLogsDir = TL_ROOT . '/var/logs';
+        }
+        
+        $strLog = 'prod-' . date('Y-m-d') . '-' . 'uptime-robot' . '.log';
+        
+        error_log(sprintf("[%s] %s\n", date('d-M-Y H:i:s'), $strMessage), 3, $strLogsDir . '/' . $strLog);
 
         return 'Log: Yes';
     }

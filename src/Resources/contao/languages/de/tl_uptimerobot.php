@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-08-27T23:13:20+02:00
+ * last-updated: 2017-07-22T01:13:41+02:00
  */
 
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_api']['0']      = 'Monitor API Keys';
@@ -16,7 +16,7 @@ $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_api']['1']      = 'API Key, Monit
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_data']['0']     = 'Monitor Daten';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_data']['1']     = 'Zugangsdaten für die UptimeRobot Monitore, "read-only" Keys bevorzugt aus Sicherheitsgründen';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_debug']['0']    = 'Debug';
-$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_debug']['1']    = 'Debug Modus aktivieren, zusätzliche Ausgaben in System-Log';
+$GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_debug']['1']    = 'Debug Modus aktivieren, zusätzliche Ausgaben in var/logs/prod-Y-m-d-uptime-robot.log';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_group']['0']    = 'Gruppenname';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_group']['1']    = 'Monitor Gruppenname';
 $GLOBALS['TL_LANG']['tl_uptimerobot']['monitor_legend_id']     = 'ID';

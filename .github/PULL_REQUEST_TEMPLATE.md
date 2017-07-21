@@ -1,14 +1,11 @@
-This pull request includes a
+| Q             | A
+| ------------- | ---
+| Bug fix?      | yes/no
+| New feature?  | yes/no 
+| Fixed tickets | #... <!-- #-prefixed issue number(s), if any -->
 
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Translation
-
-The following changes were made
-
--
--
--
-
-If this is related to an existing ticket, include a link to it as well.
+<!--
+- Please fill in this template according to the PR you're about to submit.
+- Replace this comment by a description of what your PR is solving.
+-->
 
