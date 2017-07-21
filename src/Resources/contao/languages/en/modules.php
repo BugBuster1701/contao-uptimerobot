@@ -16,5 +16,5 @@
 /**
  * Fuer Backend Anzeige in Einstellungen
  */
-$GLOBALS['TL_LANG']['MOD']['uptimerobot'] = array('Status UptimeRobot','Status UptimeRobot');
-
+$GLOBALS['TL_LANG']['MOD']['uptimerobot']['0'] = 'Status UptimeRobot';
+$GLOBALS['TL_LANG']['MOD']['uptimerobot']['1'] = 'Status UptimeRobot';

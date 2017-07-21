@@ -13,9 +13,6 @@
  * @see	       https://github.com/BugBuster1701/contao-uptimerobot
  */
 
-/**
- * Run in a custom namespace, so the class can be replaced
- */
 namespace BugBuster\UptimeRobot;
 
 use BugBuster\UptimeRobot\UptimeRobotWrapper;
