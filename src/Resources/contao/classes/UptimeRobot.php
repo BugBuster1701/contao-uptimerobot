@@ -6,13 +6,16 @@
  * @version     1.0
  * @author      Watchful
  * @authorUrl   http://www.watchful.li
+ * 
+ * @version     2.0 (api v2)
+ * @author      Glen Langer
  * @filesource  https://github.com/watchfulli/uptimeRobot
  * @license     GNU General Public License version 2 or later
  */
 class UptimeRobot
 {
-    private $base_uri = 'https://api.uptimerobot.com';
-    static private $apiKey;
+    private $base_uri = 'https://api.uptimerobot.com/v2';
+    static private $api_Key;
     static private $noJsonCallback;
     private $format = "json";
 
@@ -25,7 +28,7 @@ class UptimeRobot
      */
     public static function configure($key, $noJsonCallback = 1)
     {
-        static::$apiKey = $key;
+        static::$api_Key = $key;
         static::$noJsonCallback = $noJsonCallback;
     }
 
@@ -35,11 +38,11 @@ class UptimeRobot
      */
     public function getApiKey()
     {
-        if (empty(static::$apiKey))
+        if (empty(static::$api_Key))
         {
-            throw new Exception('Value not specified: apiKey', 1);
+            throw new Exception('Value not specified: api_key', 1);
         }
-        return static::$apiKey;
+        return static::$api_Key;
     }
 
     /**
@@ -77,29 +80,45 @@ class UptimeRobot
      * 
      * @param mixed $url required
      */
-    private function __fetch($url)
+    private function __fetch($url, $parameter)
     {
         if (empty($url))
         {
             throw new Exception('Value not specified: url', 1);
         }
 
+        $fields = array(
+                    'api_key'   => $this->getApiKey(),
+                    'format'    => $this->getFormat()
+                    );
+        if (!empty($parameter)) 
+        {
+            $fields = array_merge($fields, $parameter) ;
+        }
+        /*
         if (preg_match("#\?#", $url))
         {
-            $url .= '&apiKey=' . $this->getApiKey();
+            $url .= '&api_key=' . $this->getApiKey();
         }
         else
         {
-            $url .= '?apiKey=' . $this->getApiKey();
+            $url .= '?api_key=' . $this->getApiKey();
         }
 
         $url .= '&format=' . $this->format;
         $url .= '&noJsonCallback=' . static::$noJsonCallback;
-
+    */
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+                                                "cache-control: no-cache",
+                                                "content-type: application/x-www-form-urlencoded"
+                                              ));
         $file_contents = curl_exec($ch);
         curl_close($ch);
 
@@ -140,18 +159,26 @@ class UptimeRobot
     {
         $url = $this->base_uri . '/getMonitors';
 
-        $url .= '?logs=' . $logs . '&responseTimes=' . $responseTimes . '&responseTimesAverage=' . $responseTimesAverage . '&alertContacts=' . $alertContacts . '&showMonitorAlertContacts=' . $showMonitorAlertContacts . '&showTimezone=' . $showTimezone;
+        $parameter = array(
+            'logs' => $logs,
+            'responseTimes' => $responseTimes,
+            'responseTimesAverage' => $responseTimesAverage,
+            'alertContacts' => $alertContacts,
+            'showMonitorAlertContacts' => $showMonitorAlertContacts,
+            'showTimezone' => $showTimezone
+        ); 
+        //'&responseTimes=' . $responseTimes . '&responseTimesAverage=' . $responseTimesAverage . '&alertContacts=' . $alertContacts . '&showMonitorAlertContacts=' . $showMonitorAlertContacts . '&showTimezone=' . $showTimezone;
 
         if (!empty($monitors))
         {
-            $url .= '&monitors=' . $this->getImplode($monitors);
+            $parameter['monitors'] = $this->getImplode($monitors);
         }
         if (!empty($customUptimeRatio))
         {
-            $url .= '&customUptimeRatio=' . $this->getImplode($customUptimeRatio);
+           $parameter['customUptimeRatio'] = $this->getImplode($customUptimeRatio);
         }
 
-        return $this->__fetch($url);
+        return $this->__fetch($url, $parameter);
     }
 
     /**
@@ -171,6 +198,8 @@ class UptimeRobot
      */
     public function newMonitor($friendlyName, $URL, $type, $subType = null, $port = null, $keywordType = null, $keywordValue = null, $HTTPUsername = null, $HTTPPassword = null, $alertContacts = null, $monitorInterval=5)
     {
+        throw new Exception('Method newMonitor not yet adapted to api v2', 3);
+        
         if (empty($friendlyName) || empty($URL) || empty($type))
         {
             throw new Exception('Required key "name", "uri" or "type" not specified', 3);
@@ -236,7 +265,8 @@ class UptimeRobot
      */
     public function editMonitor($monitorId, $monitorStatus = null, $friendlyName = null, $URL = null, $subType = null, $port = null, $keywordType = null, $keywordValue = null, $HTTPUsername = null, $HTTPPassword = null, $alertContacts = null)
     {
-
+        throw new Exception('Method editMonitor not yet adapted to api v2', 3);
+        
         $url = $this->base_uri . '/editMonitor?monitorID=' . $monitorId;
 
         if (isset($monitorStatus))
@@ -308,14 +338,15 @@ class UptimeRobot
      */
     public function getAlertContacts($alertcontacts = null)
     {
+        $parameter = null;
         $url = $this->base_uri . '/getAlertContacts';
 
         if (!empty($alertcontacts))
         {
-            $url .= '?alertcontacts=' . $this->getImplode($alertcontacts);
+            $parameter['alert_contacts'] = $this->getImplode($alertcontacts);
         }
 
-        return $this->__fetch($url);
+        return $this->__fetch($url, $parameter);
     }
 
     /**
@@ -326,6 +357,8 @@ class UptimeRobot
      */
     public function newAlertContact($alertContactType, $alertContactValue)
     {
+        throw new Exception('Method newAlertContact not yet adapted to api v2', 3); 
+        
         if (empty($alertContactType) || empty($alertContactValue))
         {
             throw new Exception('Required params "$alertContactValue" or "$alertContactValue" not specified', 3);
@@ -345,6 +378,8 @@ class UptimeRobot
      */
     public function deleteAlertContact($alertContactID)
     {
+        throw new Exception('Method deleteAlertContact not yet adapted to api v2', 3);
+        
         if (empty($alertContactID))
         {
             throw new Exception('Required params "$alertContactID" not specified', 3);
