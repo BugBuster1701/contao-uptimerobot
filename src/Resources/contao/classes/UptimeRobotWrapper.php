@@ -15,7 +15,7 @@
 
 namespace BugBuster\UptimeRobot;
 
-use BugBuster\UptimeRobot\UptimeRobotLog;
+//use BugBuster\UptimeRobot\UptimeRobotLog;
 
 
 /**
@@ -133,13 +133,20 @@ class UptimeRobotWrapper
              */
             try
             {
-                $mon = $upRobot->getMonitors();
-                UptimeRobotLog::writeLog(__METHOD__ , __LINE__ , 'Monitors: '. print_r($mon,true));
+                // logs=1, all_time_uptime_ratio=1
+                $mon = $upRobot->getMonitors('','',1,'','','','','',1);
+                //UptimeRobotLog::writeLog(__METHOD__ , __LINE__ , 'Monitors: '. print_r($mon,true));
                 $all[] = $mon;                
+            } 
+            catch (\Throwable $t) 
+            {
+                // Executed only in PHP 7, will not match in PHP 5.x
             }
-            catch (\Exception $e) {}
+            catch (\Exception $e) 
+            {
+                // Executed only in PHP 5.x, will not be reached in PHP 7
+            }
             
-            //throw new \Exception(".....");
         }        
         return $all;
     }
@@ -150,33 +157,37 @@ class UptimeRobotWrapper
         
         foreach ($allMonitors as $allMonitor) 
         {
+            
         	if ($allMonitor->stat == self::STAT_OK)
         	{
+        	    $allMonitorPagination = $allMonitor->pagination;
+        	    
             	$objMonitors = $allMonitor->monitors;
-            	foreach ($objMonitors->monitor as $objMonitor) 
+            	foreach ($objMonitors as $objMonitor) 
             	{
                 	$id = $objMonitor->id;
-                	$friendlyname = $objMonitor->friendlyname;
+                	$friendlyname = $objMonitor->friendly_name;
                 	
                 	$genStatus[] = array('stat'           => $allMonitor->stat // ok
                 	                   , 'id'             => $objMonitor->id
-                	                   , 'friendlyname'   => $objMonitor->friendlyname
+                	                   , 'friendlyname'   => $objMonitor->friendly_name
                                        , 'url'            => $objMonitor->url
                 	                   , 'monitor_type'   => $this->translateMonitorType($objMonitor->type)
                 	                   //, 'monitor_status' => $this->translateMonitorStatus($objMonitor->status)
                 	                   , 'monitor_status_id'  => $objMonitor->status
-                	                   , 'alltimeuptimeratio' => $objMonitor->alltimeuptimeratio
-                	                   , 'limit'              => $allMonitor->limit
-                                       , 'total'              => $allMonitor->total
+                	                   , 'alltimeuptimeratio' => $objMonitor->all_time_uptime_ratio
+                	                   , 'limit'              => $allMonitorPagination->limit
+                                       , 'total'              => $allMonitorPagination->total
                 	                  );
             	}
         	}
         	else 
         	{
+        	    $allMonitorError = $allMonitor->error;
         	    $genStatus[] = array('stat'    => $allMonitor->stat // fail
-        	                       , 'message' => $allMonitor->message
+        	                       , 'message' => $allMonitorError->message
                                    , 'monitor_status_id'  => 4
-                                   , 'limit'              => $allMonitor->limit
+                                   , 'limit'              => 0
         	                        );
         	}
         }

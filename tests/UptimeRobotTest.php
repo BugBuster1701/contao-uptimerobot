@@ -78,7 +78,7 @@ class UptimeRobotTest extends PHPUnit_Framework_TestCase
      */
     public function testGetApiKey()
     {
-        $this->object->getApiKey();
+        $this->assertEquals($this->apiKey, $this->object->getApiKey());
     }
 
     /**

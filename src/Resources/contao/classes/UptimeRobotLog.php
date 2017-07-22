@@ -47,11 +47,11 @@ class UptimeRobotLog
             {
                 $arrUniqid = trimsplit('.', uniqid('c0n7a0',true) );
                 $GLOBALS['UptimeRobot']['debug']['first'] = $arrUniqid[1];
-                log_message(sprintf('[%s] [%s] [%s] %s',
+                self::logMessage(sprintf('[%s] [%s] [%s] %s',
                                     $GLOBALS['UptimeRobot']['debug']['first'],
                                     $method,
                                     $line,
-                                    $value), 'uptime-robot_debug.log');
+                                    $value), 'uptime-robot');
                 return 'Start: First';
             }
             else
@@ -61,30 +61,57 @@ class UptimeRobotLog
         }
                 
         $arrNamespace = trimsplit('::', $method);
-        $arrClass =  trimsplit('\\', $arrNamespace[0]);
-        $vclass = $arrClass[2]; // class that will write the log
+        $arrClass     = trimsplit('\\', $arrNamespace[0]);
+        $vclass       = $arrClass[2]; // class that will write the log
         
         if (is_array($value))
         {
             $value = print_r($value,true);
         }
         
-        $strMessage = sprintf('[%s] [%s] [%s] %s',$GLOBALS['UptimeRobot']['debug']['first'],$vclass.'::'.$arrNamespace[1],$line,$value);
-        
-        if (($container = \System::getContainer()) !== null)
-        {
-            $strLogsDir = $container->getParameter('kernel.logs_dir');
-        }
-        
-        if (!$strLogsDir)
-        {
-            $strLogsDir = TL_ROOT . '/var/logs';
-        }
-        
-        $strLog = 'prod-' . date('Y-m-d') . '-' . 'uptime-robot' . '.log';
-        
-        error_log(sprintf("[%s] %s\n", date('d-M-Y H:i:s'), $strMessage), 3, $strLogsDir . '/' . $strLog);
+        self::logMessage(sprintf('[%s] [%s] [%s] %s',$GLOBALS['UptimeRobot']['debug']['first'],$vclass.'::'.$arrNamespace[1],$line,$value),'uptime-robot');
 
         return 'Log: Yes';
     }
+    
+    /**
+     * Wrapper for old log_message
+     *
+     * @param string $strMessage
+     * @param string $strLogg
+     */
+    public static function logMessage($strMessage, $strLog=null)
+    {
+        if ($strLog === null)
+        {
+            $strLog = 'prod-' . date('Y-m-d') . '.log';
+        }
+        else
+        {
+            $strLog = 'prod-' . date('Y-m-d') . '-' . $strLog . '.log';
+        }
+    
+        $strLogsDir = '.';
+
+        if ( !isset($GLOBALS['PHPUNIT']) ) 
+        {
+            if (($container = \System::getContainer()) !== null)
+            {
+                $strLogsDir = $container->getParameter('kernel.logs_dir');
+            }
+        
+            if (!$strLogsDir)
+            {
+                $strLogsDir = TL_ROOT . '/var/logs';
+            }
+        }
+        else 
+        {
+            $strLogsDir = $GLOBALS['PHPUNIT'];
+        }
+        
+        error_log(sprintf("[%s] %s\n", date('d-M-Y H:i:s'), $strMessage), 3, $strLogsDir . '/' . $strLog);
+        return;
+    }
+    
 }

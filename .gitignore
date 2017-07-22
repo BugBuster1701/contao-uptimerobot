@@ -8,5 +8,6 @@
 build/
 # test apikey file
 tests/apikey.php
+tests/prod*.log
 phpunit.xml
 

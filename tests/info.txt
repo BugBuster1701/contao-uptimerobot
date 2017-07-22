@@ -1,3 +1,24 @@
+API V2
+
+
+
+Bei fehlerhaften Key
+
+        (
+            [stat] => fail
+            [error] => stdClass Object
+                (
+                    [type] => invalid_parameter
+                    [parameter_name] => api_key
+                    [passed_value] => m776884653-fa4e7cae53a19f2791463ce6w
+                    [message] => api_key not found.
+                )
+
+        )
+
+
+------------------
+API V1
 Rückgabe API bei $noJsonCallback = 1 und zwei einzel read-only keys
 Array
 (

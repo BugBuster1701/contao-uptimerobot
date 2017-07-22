@@ -114,6 +114,7 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
     {
         //fwrite(STDOUT,"\n". __METHOD__ . " API Key: ".$GLOBALS['monitor_api'][0]."\n");
         $return = $this->UptimeRobotWrapper->getAllMonitors($GLOBALS['monitor_api'][0]);
+        //fwrite(STDOUT,"\n". __METHOD__ . " Monitor: ".print_r($return, true)."\n");
         $this->assertNotEquals(null,$return);
     }
     
@@ -149,12 +150,20 @@ class UptimeRobotWrapperTest extends PHPUnit_Framework_TestCase
         $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
         $this->assertNotEquals(null,$return);
         //fwrite(STDOUT,"\n" . print_r($return,true) ."\n");
-        
+    }
+    
+    /**
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::generateStatus
+     * @covers BugBuster\UptimeRobot\UptimeRobotWrapper::translateMonitorType
+     */
+    public function testGenerateStatusFail()
+    {
         self::$arrObjMonitors = null;
         self::$arrObjMonitors[0] = new stdClass();
         self::$arrObjMonitors[0]->stat    = 'fail';
-        self::$arrObjMonitors[0]->message = 'wrong key';
-        self::$arrObjMonitors[0]->limit   = 50;
+        self::$arrObjMonitors[0]->error = new stdClass();
+        self::$arrObjMonitors[0]->error->type  = 'invalid_parameter';
+        self::$arrObjMonitors[0]->error->message  = 'api_key not found';
         //fwrite(STDOUT,"\n". __METHOD__ . " arrObjMonitors: ".print_r(self::$arrObjMonitors,true)."\n");
         $return = $this->UptimeRobotWrapper->generateStatus(self::$arrObjMonitors);
         $this->assertEquals('fail',$return[0]['stat']);

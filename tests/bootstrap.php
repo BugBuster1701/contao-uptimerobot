@@ -5,10 +5,7 @@
 //https://github.com/theseer/Autoload
 require_once dirname(__FILE__) . '/autoload.php';
 
-function log_message($strMessage, $strLog='error.log')
-{
-    @error_log(sprintf("[%s] %s\n", date('d-M-Y H:i:s'), $strMessage), 3, dirname(__FILE__) . '/../build/' . $strLog);
-}
+$GLOBALS['PHPUNIT'] =  __DIR__;
 
 /**
  * Split a string into fragments, remove whitespace and return fragments as array

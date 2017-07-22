@@ -15,7 +15,7 @@
 class UptimeRobot
 {
     private $base_uri = 'https://api.uptimerobot.com/v2';
-    static private $api_Key;
+    static private $api_key;
     static private $noJsonCallback;
     private $format = "json";
 
@@ -28,7 +28,7 @@ class UptimeRobot
      */
     public static function configure($key, $noJsonCallback = 1)
     {
-        static::$api_Key = $key;
+        static::$api_key = $key;
         static::$noJsonCallback = $noJsonCallback;
     }
 
@@ -38,11 +38,11 @@ class UptimeRobot
      */
     public function getApiKey()
     {
-        if (empty(static::$api_Key))
+        if (empty(static::$api_key))
         {
             throw new Exception('Value not specified: api_key', 1);
         }
-        return static::$api_Key;
+        return static::$api_key;
     }
 
     /**
@@ -86,7 +86,8 @@ class UptimeRobot
         {
             throw new Exception('Value not specified: url', 1);
         }
-
+        //fwrite(STDOUT,"\n". __METHOD__ . " URL: ".print_r($url,true)."\n");
+        //fwrite(STDOUT,"\n". __METHOD__ . " PAR: ".print_r($parameter,true)."\n");
         $fields = array(
                     'api_key'   => $this->getApiKey(),
                     'format'    => $this->getFormat()
@@ -95,33 +96,26 @@ class UptimeRobot
         {
             $fields = array_merge($fields, $parameter) ;
         }
-        /*
-        if (preg_match("#\?#", $url))
-        {
-            $url .= '&api_key=' . $this->getApiKey();
-        }
-        else
-        {
-            $url .= '?api_key=' . $this->getApiKey();
-        }
+        //fwrite(STDOUT,"\n". __METHOD__ . " POST: ".print_r($fields,true)."\n");
 
-        $url .= '&format=' . $this->format;
-        $url .= '&noJsonCallback=' . static::$noJsonCallback;
-    */
+        //url-ify the data for the POST
+        $fields_string = http_build_query($fields);
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
         curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
                                                 "cache-control: no-cache",
                                                 "content-type: application/x-www-form-urlencoded"
                                               ));
         $file_contents = curl_exec($ch);
         curl_close($ch);
-
+        //fwrite(STDOUT,"\n". __METHOD__ . " RETURN: ".print_r($file_contents,true)."\n");
         if ($this->format == 'xml')
         {
             return $file_contents;
@@ -153,21 +147,22 @@ class UptimeRobot
      *                                                      Requires logs to be set to 1
      * @param bool  $showMonitorAlertContacts   optional    Defines if the alert contacts set for the monitor to be returned
      * @param bool  $showTimezone               optional    Defines if the user's timezone should be returned
+     * @param bool  $all_time_uptime_ratio      optional    Defines if the "all time uptime ratio" to be returned 
      * 
      */
-    public function getMonitors($monitors = null, $customUptimeRatio = null, $logs = 0, $responseTimes = 0, $responseTimesAverage = 0, $alertContacts = 0, $showMonitorAlertContacts = 0, $showTimezone = 0)
+    public function getMonitors($monitors = null, $customUptimeRatio = null, $logs = 0, $responseTimes = 0, $responseTimesAverage = 0, $alertContacts = 0, $showMonitorAlertContacts = 0, $showTimezone = 0, $all_time_uptime_ratio = 0)
     {
         $url = $this->base_uri . '/getMonitors';
 
         $parameter = array(
             'logs' => $logs,
-            'responseTimes' => $responseTimes,
-            'responseTimesAverage' => $responseTimesAverage,
-            'alertContacts' => $alertContacts,
-            'showMonitorAlertContacts' => $showMonitorAlertContacts,
-            'showTimezone' => $showTimezone
+            'response_times' => $responseTimes,
+            'response_times_average' => $responseTimesAverage,
+            'alert_contacts' => $alertContacts,
+            //'showMonitorAlertContacts' => $showMonitorAlertContacts,
+            'timezone' => $showTimezone,
+            'all_time_uptime_ratio' => $all_time_uptime_ratio
         ); 
-        //'&responseTimes=' . $responseTimes . '&responseTimesAverage=' . $responseTimesAverage . '&alertContacts=' . $alertContacts . '&showMonitorAlertContacts=' . $showMonitorAlertContacts . '&showTimezone=' . $showTimezone;
 
         if (!empty($monitors))
         {
@@ -175,7 +170,7 @@ class UptimeRobot
         }
         if (!empty($customUptimeRatio))
         {
-           $parameter['customUptimeRatio'] = $this->getImplode($customUptimeRatio);
+           $parameter['custom_uptime_ratios'] = $this->getImplode($customUptimeRatio);
         }
 
         return $this->__fetch($url, $parameter);
